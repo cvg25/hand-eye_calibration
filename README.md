@@ -1,5 +1,12 @@
 # Hand-Eye Calibration
 
+<img src="docs/eye-in-hand.svg" height=280px align="left"/>
+<img src="docs/eye-to-hand.svg" height=280px align="middle"/>
+
+ Left image: __eye-in-hand__. To find the `T_robot_camera`. Right image: __eye-to-hand__. To find the `T_ext_camera`.
+[Source](https://doc.rc-visard.com/latest/en/handeye_calibration.html)
+
+
 ### Index:
 - [Problem](https://github.com/cvg25/hand-eye_calibration#problem)
 - [Motivation](https://github.com/cvg25/hand-eye_calibration#motivation)
@@ -12,12 +19,6 @@
 
 ### Problem:
 "In robotics and mathematics, the hand eye calibration problem (also called the robot-sensor or robot-world calibration problem) is the problem of determining the transformation between a robot end-effector and a camera or between a robot base and the world coordinate system." [Learn more.](https://en.wikipedia.org/wiki/Hand_eye_calibration_problem)
-
-<img src="docs/eye-in-hand.svg" height=280px align="left"/>
-<img src="docs/eye-to-hand.svg" height=280px align="middle"/>
-
- Left image: __eye-in-hand__. To find the `T_robot_camera`. Right image: __eye-to-hand__. To find the `T_ext_camera`.
-[Source](https://doc.rc-visard.com/latest/en/handeye_calibration.html)
 
 ### Motivation:
 To develop a calibration procedure that:
