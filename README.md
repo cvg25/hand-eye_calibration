@@ -1,6 +1,16 @@
 # Hand-Eye Calibration
 
-### The problem:
+### Index:
+- [Problem](https://github.com/cvg25/hand-eye_calibration#problem)
+- [Motivation](https://github.com/cvg25/hand-eye_calibration#motivation)
+- [Proposed solution explained](https://github.com/cvg25/hand-eye_calibration#proposed-solution-explained)
+- [How to use](https://github.com/cvg25/hand-eye_calibration#how-to-use)
+- [Advantages](https://github.com/cvg25/hand-eye_calibration#advantages)
+- [Limitations](https://github.com/cvg25/hand-eye_calibration#limitations)
+- [Hardware](https://github.com/cvg25/hand-eye_calibration#hardware)
+- [Acknowledgments](https://github.com/cvg25/hand-eye_calibration#acknowledgments)
+
+### Problem:
 "In robotics and mathematics, the hand eye calibration problem (also called the robot-sensor or robot-world calibration problem) is the problem of determining the transformation between a robot end-effector and a camera or between a robot base and the world coordinate system." [Learn more.](https://en.wikipedia.org/wiki/Hand_eye_calibration_problem)
 
 <img src="docs/eye-in-hand.svg" height=280px align="left"/>
