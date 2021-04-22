@@ -78,7 +78,6 @@ Visit this post by [nghiaho.com](http://nghiaho.com/?page_id=671) to learn more 
 2. Go to `hand-eye_calibration/rs_server/` and compile `rs_server.cpp`. Make sure you have the [librealsense SDK](https://github.com/IntelRealSense/librealsense/) installed.
 ```
 $ cd hand-eye_calibration/rs_server/
-$ cmake .
 $ make
 ```
 3. Connect realsense to the computer using a USB3.0 interface connection.

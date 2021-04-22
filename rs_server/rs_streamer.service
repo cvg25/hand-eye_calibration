@@ -1,0 +1,14 @@
+[Unit]
+Description=Realsense Streaming Service
+After=network.target
+
+[Service]
+ExecStart=rs_streamer
+WorkingDirectory=/home/pi/Workspace/rs_server
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
