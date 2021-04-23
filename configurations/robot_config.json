@@ -1,0 +1,18 @@
+{
+    "robot_ip": "192.168.50.71",
+    "tcp_port": 30002,
+    "rct_port": 30003,
+    "dashboard_port":29999,
+    "program": "/programs/Softmanbot/tool_electric.urp",
+    "home_joints_rad": [0.20629791758572977, -1.7517869702267086, 1.7681930651954554, -1.572192590196492, 4.705058597526313, -2.9457667115160295],
+    "JOINT_ACC_DEFAULT": 8,
+    "JOINT_VEL_DEFAULT": 3,
+    "JOINT_ACC_SAFE": 1.4,
+    "JOINT_VEL_SAFE": 1.05,
+    "joint_tolerance": 0.1,
+    "TOOL_ACC_DEFAULT": 1.2,
+    "TOOL_VEL_DEFAULT": 0.25,
+    "TOOL_ACC_SAFE": 0.5,
+    "TOOL_VEL_SAFE": 0.2,
+    "pose_tolerance": [0.002, 0.002, 0.002, 0.01, 0.01, 0.01]
+}

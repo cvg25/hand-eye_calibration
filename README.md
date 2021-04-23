@@ -1,7 +1,7 @@
 # Hand-Eye Calibration
 
-<img src="docs/eye-in-hand.svg" height=280px align="left"/>
-<img src="docs/eye-to-hand.svg" height=280px align="middle"/>
+<img src="resources/eye-in-hand.svg" height=280px align="left"/>
+<img src="resources/eye-to-hand.svg" height=280px align="middle"/>
 
  Left image: __eye-in-hand__. To find the `T_robot_camera`. Right image: __eye-to-hand__. To find the `T_ext_camera`.
 [Source](https://doc.rc-visard.com/latest/en/handeye_calibration.html)
@@ -87,7 +87,7 @@ $ ./rs_streamer
 ```
 Keep it running while calibrating, each time the robot connects to retrieve an RGBD frame it will output `Connected to client.` on the terminal. To further test a python TCP client that fetches RGBD frames from the server edit the `configurations/camera_config.json` (see next step for details) and then run: `$ python camera_streamer.py`
 
-5. Open the `configuration.json` file and fill in the parameters:
+5. Open the `configurations/calibrate_config.json` file and fill in the parameters:
   - __calibration_type__:
     - "MOVING_CAMERA": the camera mounted on the robot. (eye-in-hand)
     - "FIXED_CAMERA": the camera is fixed to the workspace and independent of robot moves. (eye-to-hand)
@@ -117,6 +117,8 @@ Keep it running while calibrating, each time the robot connects to retrieve an R
 7. Once the calibration process ends, two files will be stored in `hand-eye_calibration/calibrations/`:
  - `DATETIME_camera_pose.txt`: it contains the transformation matrix between the robot and the camera.
  - `DATETIME_camera_depth_offset.txt`: it contains a value which is a scale factor that should be multiplied with each pixel captured from the camera. Note: as tested RealSense D415 series are not likely to suffer a scaling problem, but other devices might.
+
+8. To test the result of the calibrated camera extrinsics edit the `touch_tester_config.json` file to meet your setup and execute `$ python touch_tester.py`. It provides a UI where the user can click at any point in the RGBD image and the robot moves its end-effector to the 3D location of that point.
 
 ### Advantages:
 - It directly optimizes for both depth and rgb channels at the same time. This has many advantages. For example, it introduces the noise of the depth sensor in the calibration process and calculates the transformation matrix with it. As opposed to other solutions where the calibration process is only estimated using the rgb channels and a reference point (e.g. ArUco marker) which its depth precision differs from the depth channel of the image, therefore not capturing this discrepancies inside the calibration process.
