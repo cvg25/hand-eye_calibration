@@ -128,7 +128,7 @@ Keep it running while calibrating, each time the robot connects to retrieve an R
 - It is __end to end__. No human intervention once the system is ready to start the calibration process.
 
 ### Limitations:
-- Precision increases linearly with samples. As the robot has to move to different photo positions, it is sometimes difficult to use in very small spaces or with obstacles.
+- Precision increases with samples. As the robot has to move to different photo positions, it is sometimes difficult to use in very small spaces or with obstacles.
 - It is only suitable for RGBD Cameras.
 
 ### Hardware:
