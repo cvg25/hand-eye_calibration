@@ -1,10 +1,10 @@
 {
-    "calibration_type": "MOVING_CAMERA",
+    "calibration_type": "EYE_TO_HAND",
     "robot_config_file":"./configurations/robot_config.json",
     "camera_config_file":"./configurations/camera_config.json",
-    "workspace_limits": [[-0.664, -0.306], [-0.732, -0.087], [0.437, 0.657]],
+    "workspace_limits": [[-0.536, -0.277], [-0.442, -0.185], [-0.102, 0.374]],
     "calib_grid_step": 0.05,
-    "reference_point_offset": [[-0.49050],[-0.33472],[-0.10300], [1]],
-    "tool_orientation": [3.157,0.0,0.0],
+    "reference_point_offset": [[0.0],[-0.029],[0.117], [1]],
+    "tool_orientation": [0.0,3.157,0.0],
     "checkerboard_size": 3
 }

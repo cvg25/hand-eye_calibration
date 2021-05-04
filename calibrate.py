@@ -29,7 +29,7 @@ class Configuration(object):
     @staticmethod
     def dump_sample_file():
         config = {
-            "calibration_type": "MOVING_CAMERA",
+            "calibration_type": "EYE_IN_HAND",
             "robot_config_file":"PATH/TO/FILE",
             "camera_config_file":"PATH/TO/FILE",
             "workspace_limits": [[-0.490, 0.390], [-0.645, -0.185], [0.462, 0.710]],
@@ -64,13 +64,14 @@ def calibrate(config):
     #observed_pix: Pixel locations of the center of the checkerboard in the image.
     observed_pix = []
 
-    print('Going to calibrate in : ', num_calib_grid_pts, 'different points.')
+    print(f'Going to calibrate in {num_calib_grid_pts} different points.')
 
     # Connect to the robot
     print('Connecting to robot...')
     robot = URRobot(config.robot_config_file)
     # Slow down robot to SAFE values
     robot.activate_safe_mode()
+    robot.go_home()
     # Connect to the camera
     print('Connecting to camera...')
     camera = RealsenseD415TCP(config.camera_config_file)
@@ -96,7 +97,7 @@ def calibrate(config):
                     observed_pix.append(checkerboard_pix)
                     # Get current robot pose
                     current_pose = robot.get_cartesian_pose()
-                    if config.calibration_type == "MOVING_CAMERA":
+                    if config.calibration_type == "EYE_IN_HAND":
                         rot_vec = np.array(current_pose)
                         rot_vec.shape = (1,6)
                         T_be = utils.V2T(rot_vec)
@@ -105,14 +106,15 @@ def calibrate(config):
                         checker2tool = np.dot(invT_be, config.reference_point_offset)
                         checker2tool = checker2tool[:3, 0]
                         measured_pts.append(checker2tool)
-                    else: # "FIXED_CAMERA"
+                        print('Measured points: ',  checker2tool)
+                    else: # "EYE_TO_HAND"
                         tool_position = current_pose[:3] + config.reference_point_offset.flatten()[:3]
                         measured_pts.append(tool_position)
-
+                        print('Measured points: ',  tool_position)
                     # Save calibration point and observed checkerboard center
                     print('Observed points: ', [checkerboard_x,checkerboard_y,checkerboard_z])
                     print('Checkerboard pix: ', checkerboard_pix)
-                    print('Measured points: ',  checker2tool)
+
                 else:
                     print('checkerboard Z == 0')
             else:
@@ -162,7 +164,7 @@ def calibrate(config):
         registered_pts = np.dot(R,np.transpose(measured_pts)) + np.tile(t,(1,measured_pts.shape[0]))
         error = np.transpose(registered_pts) - new_observed_pts
         error = np.sum(np.multiply(error,error))
-        rmse = np.sqrt(error/measured_pts.shape[0]);
+        rmse = np.sqrt(error/measured_pts.shape[0])
         return rmse
 
     # Optimize z scale w.r.t. rigid transform error
@@ -180,10 +182,10 @@ def calibrate(config):
     if not os.path.exists(path_dir):
         os.makedirs(path_dir)
 
-    np.savetxt('./calibrations/' + date_time + '_camera_depth_scale.txt', camera_depth_offset, delimiter=' ')
+    np.savetxt('./calibrations/' + date_time + '_' + config.calibration_type  + '_camera_depth_scale.txt', camera_depth_offset, delimiter=' ')
     get_rigid_transform_error(camera_depth_offset)
     camera_pose = np.linalg.inv(world2camera)
-    np.savetxt('./calibrations/' + date_time + '_camera_pose.txt', camera_pose, delimiter=' ')
+    np.savetxt('./calibrations/' + date_time + '_' + config.calibration_type  + '_camera_pose.txt', camera_pose, delimiter=' ')
     print('Done.')
 
     # DEBUG CODE -----------------------------------------------------------------------------------

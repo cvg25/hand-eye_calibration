@@ -10,6 +10,7 @@ import argparse
 
 def touch_tester(args):
     config = ConfigLoader.load(args.config_file)
+    print(f'Touch tester in {config["calibration_type"]} mode as indicated on configuration file.')
     robot = URRobot(config["robot_config_file"])
     robot.activate_safe_mode()
     robot.move_joints(robot.home_joints_rad)
@@ -27,7 +28,7 @@ def touch_tester(args):
             pix_width = x
             pix_height = y
             world_position = visionutils.transform_pix_to_world_pos(depth, pix_width, pix_height, cam_pose, camera.intrinsics, cam_depth_scale)
-            if config["calibration_type"] == "MOVING_CAMERA":
+            if config["calibration_type"] == "EYE_IN_HAND":
                 tool_world_position = world_position
                 robot.move_wrt_tool(tool_world_position)
                 # Equivalent option: Transform tool_world_position to robot_base_world_pose and then use robot.move_to_pose()
@@ -45,7 +46,7 @@ def touch_tester(args):
                 # base_world_position = np.dot(T_be[0:3,0:3], tool_world_position[0:3,0]) + current_position
                 # robot.move_to_pose(base_world_position[0:3], current_orientation)
 
-            else: # "FIXED_CAMERA"
+            else: # "EYE_TO_HAND"
                 current_pose = robot.get_cartesian_pose()
                 current_pose = np.array(current_pose)
                 current_orientation = current_pose[3:6]

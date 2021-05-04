@@ -3,7 +3,7 @@
     "tcp_port": 30002,
     "rct_port": 30003,
     "dashboard_port":29999,
-    "program": "/programs/Softmanbot/tool_electric.urp",
+    "program": "/programs/Softmanbot/zimmer_tool_pneumatic.urp",
     "home_joints_rad": [0.20629791758572977, -1.7517869702267086, 1.7681930651954554, -1.572192590196492, 4.705058597526313, -2.9457667115160295],
     "JOINT_ACC_DEFAULT": 8,
     "JOINT_VEL_DEFAULT": 3,

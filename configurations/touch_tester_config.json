@@ -1,7 +1,7 @@
 {
-    "calibration_type": "MOVING_CAMERA",
+    "calibration_type": "EYE_TO_HAND",
     "robot_config_file":"./configurations/robot_config.json",
     "camera_config_file":"./configurations/camera_config.json",
-    "calibration_depth_scale":"./calibrations/2021-03-03_16:29:54_camera_depth_scale.txt",
-    "calibration_camera_pose":"./calibrations/2021-03-03_16:29:54_camera_pose.txt"
+    "calibration_depth_scale":"./calibrations/2021-05-04_15:19:02_EYE_TO_HAND_camera_depth_scale.txt",
+    "calibration_camera_pose":"./calibrations/2021-05-04_15:19:02_EYE_TO_HAND_camera_pose.txt"
 }

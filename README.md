@@ -91,8 +91,8 @@ Keep it running while calibrating, each time the robot connects to retrieve an R
 
 6. Open the `configurations/calibrate_config.json` file and fill in the parameters:
   - __calibration_type__:
-    - "MOVING_CAMERA": the camera mounted on the robot. (eye-in-hand)
-    - "FIXED_CAMERA": the camera is fixed to the workspace and independent of robot moves. (eye-to-hand)
+    - "EYE_IN_HAND": the camera mounted on the robot. (eye-in-hand)
+    - "EYE_TO_HAND": the camera is fixed to the workspace and independent of robot moves. (eye-to-hand)
   - __calib_grid_step__: it defines the step distance in meters between "photo positions". (e.g. 0.05 meters)
   - __workspace_limits__: it is a cube defined by 3 points (X,Y,Z) from the robots' base. Inside this cube the robot will move to the different "photo positions" parameterized by __calib_grid_step__ to capture a data point. It is important to take into account that the closest distance from the camera to the checkerboard is higher than the minZ value of the depth channel. Note: on RealSense D415, minZ is 0.5 meters. shape = (3,2). rows = X, Y, Z. colums = MIN, MAX values.
   - __reference_point_offset__: it is the point (X,Y,Z) position of the center of the checkerboard pattern with respect to the robots' base.
@@ -140,7 +140,7 @@ Keep it running while calibrating, each time the robot connects to retrieve an R
  #### Tested on:
   - RGBD Camera: Intel RealSense D415
   - Robot: UR10e
-  - PC: Ubuntu 18 running Python 3.8
+  - PC: Ubuntu 18 and 20 running Python 3.8
 
 ### Acknowledgments
 
