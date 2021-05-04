@@ -1,9 +1,8 @@
-#!/usr/bin/env python
-from igym.robots.ur_robot import URRobot
-from igym.vision.realsense_d415_tcp import RealsenseD415TCP
-import igym.utils.utils as utils
-import igym.vision.utils as visionutils
-from igym.utils.config_loader import ConfigLoader
+from robot.ur_robot import URRobot
+from vision.realsense_d415_tcp import RealsenseD415TCP
+import utils.utils as utils
+import vision.utils as visionutils
+from utils.config_loader import ConfigLoader
 import numpy as np
 import time
 import cv2
@@ -25,12 +24,11 @@ def touch_tester(args):
         if event == cv2.EVENT_LBUTTONDOWN:
             nonlocal click_point_pix, camera, robot, depth, color, cam_pose, cam_depth_scale
             click_point_pix = (x, y)
-            width = x
-            height = y
-            world_position = visionutils.transform_pix_to_world_pos(depth, width, height, cam_pose, camera.intrinsics, cam_depth_scale)
+            pix_width = x
+            pix_height = y
+            world_position = visionutils.transform_pix_to_world_pos(depth, pix_width, pix_height, cam_pose, camera.intrinsics, cam_depth_scale)
             if config["calibration_type"] == "MOVING_CAMERA":
                 tool_world_position = world_position
-                # orientation_wrt_tool = [0.0,0.0,0.0]
                 robot.move_wrt_tool(tool_world_position)
                 # Equivalent option: Transform tool_world_position to robot_base_world_pose and then use robot.move_to_pose()
                 #
@@ -48,7 +46,11 @@ def touch_tester(args):
                 # robot.move_to_pose(base_world_position[0:3], current_orientation)
 
             else: # "FIXED_CAMERA"
-                pass
+                current_pose = robot.get_cartesian_pose()
+                current_pose = np.array(current_pose)
+                current_orientation = current_pose[3:6]
+                base_world_position = world_position
+                robot.move_to_pose(base_world_position, current_orientation)
 
     # Show color frame
     cv2.namedWindow('color')

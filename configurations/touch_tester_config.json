@@ -1,7 +1,7 @@
 {
     "calibration_type": "MOVING_CAMERA",
-    "robot_config_file":"/home/portatil/Workspace/base/camera_calibrator/configurations/robot_config.json",
-    "camera_config_file":"/home/portatil/Workspace/base/camera_calibrator/configurations/camera_config.json",
-    "calibration_depth_scale":"/home/portatil/Workspace/base/camera_calibrator/calibrations/2021-03-03_16:29:54_camera_depth_scale.txt",
-    "calibration_camera_pose":"/home/portatil/Workspace/base/camera_calibrator/calibrations/2021-03-03_16:29:54_camera_pose.txt"
+    "robot_config_file":"./configurations/robot_config.json",
+    "camera_config_file":"./configurations/camera_config.json",
+    "calibration_depth_scale":"./calibrations/2021-03-03_16:29:54_camera_depth_scale.txt",
+    "calibration_camera_pose":"./calibrations/2021-03-03_16:29:54_camera_pose.txt"
 }

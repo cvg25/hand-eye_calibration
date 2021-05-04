@@ -8,7 +8,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Stream rgbd frames from a RealSense TCP Server.')
 
     # Setup options
-    parser.add_argument('--config_file', dest='config_file', action='store', default='./configurations/camera_calibrator_example.json', help='Configuration file for the calibration.')
+    parser.add_argument('--config_file', dest='config_file', action='store', default='./configurations/calibrate_config.json', help='Configuration file for the calibration.')
     args = parser.parse_args()
     configuration = ConfigLoader.load(args.config_file)
     # Connect to the camera
@@ -21,8 +21,10 @@ if __name__ == '__main__':
     color, depth = camera.get_state()
 
     while True:
-        color, depth = camera.get_state()
-        cv2.imshow('color', color)
+        color_bgr, depth = camera.get_state()
+        color_rgb = cv2.cvtColor(color_bgr, cv2.COLOR_BGR2RGB)
+
+        cv2.imshow('color', color_rgb)
         cv2.imshow('depth', depth)
         cv2.waitKey(1)
 

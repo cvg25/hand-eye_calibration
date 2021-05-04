@@ -1,8 +1,8 @@
-from igym.robots.ur_robot import URRobot
-from igym.vision.realsense_d415_tcp import RealsenseD415TCP
-import igym.utils.utils as utils
-import igym.vision.utils as visionutils
-from igym.utils.config_loader import ConfigLoader
+from robot.ur_robot import URRobot
+from vision.realsense_d415_tcp import RealsenseD415TCP
+import utils.utils as utils
+import vision.utils as visionutils
+from utils.config_loader import ConfigLoader
 from datetime import datetime
 import numpy as np
 import cv2
@@ -219,7 +219,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Perform the Hand Eye calibration and store the transformation matrix.')
 
     # Setup options
-    parser.add_argument('--config_file', dest='config_file', action='store', default='./configurations/camera_calibrator_example.json', help='Configuration file for the calibration.')
+    parser.add_argument('--config_file', dest='config_file', action='store', default='./configurations/calibrate_config.json', help='Configuration file for the calibration.')
     parser.add_argument('--dump_sample_file', dest='dump_sample_file', action='store', default=False, help='When true, dumps a sample configuration file.')
     args = parser.parse_args()
     if args.dump_sample_file:

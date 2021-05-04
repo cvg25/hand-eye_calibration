@@ -87,7 +87,9 @@ $ ./rs_streamer
 ```
 Keep it running while calibrating, each time the robot connects to retrieve an RGBD frame it will output `Connected to client.` on the terminal. To further test a python TCP client that fetches RGBD frames from the server edit the `configurations/camera_config.json` (see next step for details) and then run: `$ python camera_streamer.py`
 
-5. Open the `configurations/calibrate_config.json` file and fill in the parameters:
+5. Create a brand new conda environment and run: `$ pip install -r requirements.txt` in order to install all the python libraries needed at the versions tested.
+
+6. Open the `configurations/calibrate_config.json` file and fill in the parameters:
   - __calibration_type__:
     - "MOVING_CAMERA": the camera mounted on the robot. (eye-in-hand)
     - "FIXED_CAMERA": the camera is fixed to the workspace and independent of robot moves. (eye-to-hand)
@@ -112,13 +114,13 @@ Keep it running while calibrating, each time the robot connects to retrieve an R
       - __dashboard_port__: Dashboard
     - Edit at your own risk: the rest of parameters regarding velocities and accelerations have been tested for UR robots to perform the calibration under safety conditions. Changing those might speed up the process but also suffer from bad image captures due to sharp motions, affecting the precision of the calibration result.
 
-6. Open a different terminal and execute `$ python calibrate.py` to move the robot and calibrate. Note: the robot will move inside the 3D cube grid indicated by workspace_limits with a step size of calib_grid_step at the config.json file. Be cautious.
+7. Open a different terminal and execute `$ python calibrate.py` to move the robot and calibrate. Note: the robot will move inside the 3D cube grid indicated by workspace_limits with a step size of calib_grid_step at the config.json file. Be cautious.
 
-7. Once the calibration process ends, two files will be stored in `hand-eye_calibration/calibrations/`:
+8. Once the calibration process ends, two files will be stored in `hand-eye_calibration/calibrations/`:
  - `DATETIME_camera_pose.txt`: it contains the transformation matrix between the robot and the camera.
  - `DATETIME_camera_depth_offset.txt`: it contains a value which is a scale factor that should be multiplied with each pixel captured from the camera. Note: as tested RealSense D415 series are not likely to suffer a scaling problem, but other devices might.
 
-8. To test the result of the calibrated camera extrinsics edit the `touch_tester_config.json` file to meet your setup and execute `$ python touch_tester.py`. It provides a UI where the user can click at any point in the RGBD image and the robot moves its end-effector to the 3D location of that point.
+9. To test the result of the calibrated camera extrinsics edit the `touch_tester_config.json` file to meet your setup and execute `$ python touch_tester.py`. It provides a UI where the user can click at any point in the RGBD image and the robot moves its end-effector to the 3D location of that point.
 
 ### Advantages:
 - It directly optimizes for both depth and rgb channels at the same time. This has many advantages. For example, it introduces the noise of the depth sensor in the calibration process and calculates the transformation matrix with it. As opposed to other solutions where the calibration process is only estimated using the rgb channels and a reference point (e.g. ArUco marker) which its depth precision differs from the depth channel of the image, therefore not capturing this discrepancies inside the calibration process.
