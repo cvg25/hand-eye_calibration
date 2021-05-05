@@ -29,6 +29,8 @@ To develop a calibration procedure that:
 - It is fast and easy compared to other more manual or different steps solutions.
 - It uses common python libraries.
 
+
+
 ### Proposed solution explained:
 The calibration process estimates the camera extrinsics with respect to:
 - Robot base coordinates for the __eye-to_hand__.
@@ -72,8 +74,23 @@ def get_rigid_transform(A, B):
 ```
 Visit this post by [nghiaho.com](http://nghiaho.com/?page_id=671) to learn more as it is the original source of inspiration. The implementation of only the __hand-to-eye__ case was first seen on [github.com/andyzeng/visual-pushing-grasping](https://github.com/andyzeng/visual-pushing-grasping).
 
+As a result of the calibration process, an image will be shown where the datasets should be aligned. It can be observed that the robot dataset (blue) has perfect distribution of points, whereas the dataset captured by the RGBD camera (red) will reflect the precision given by its depth sensor. 
+Red points will not overlap the blue ones unless RGBD precision is 100% accurate.
+
+<img src="resources/out1.png" height=280px align="left"/>
+<img src="resources/out2.png" height=280px align="middle"/>
+
+ Images: examples of different calibrations results.
+
+
+
 ### How to use:
-1. Put the checkerboard pattern fixed to either the robot hand tool center position (eye-in-hand calibration) or the workspace (eye-to-hand). Make sure it will not move during the calibration process.
+1. Put the checkerboard pattern fixed to either the robot hand tool center position (eye-to-hand) or the workspace (eye-in-hand). Make sure it will not move during the calibration process.
+
+<img src="resources/eih-checkerboard.jpg" height=280px align="left"/> 
+<img src="resources/eth-checkerboard.jpg" height=280px align="middle"/>
+
+ Left image: __eye-in-hand__, checkerboard fixed to workspace. Right image: __eye-to-hand__, checkerboard fixed to robot end-effector.
 
 2. Go to `hand-eye_calibration/rs_server/` and compile `rs_server.cpp`. Make sure you have the [librealsense SDK](https://github.com/IntelRealSense/librealsense/) installed.
 ```
@@ -91,11 +108,11 @@ Keep it running while calibrating, each time the robot connects to retrieve an R
 
 6. Open the `configurations/calibrate_config.json` file and fill in the parameters:
   - __calibration_type__:
-    - "EYE_IN_HAND": the camera mounted on the robot. (eye-in-hand)
-    - "EYE_TO_HAND": the camera is fixed to the workspace and independent of robot moves. (eye-to-hand)
+    - "EYE_IN_HAND": the camera mounted on the robot.
+    - "EYE_TO_HAND": the camera is fixed to the workspace and independent of robot moves. 
   - __calib_grid_step__: it defines the step distance in meters between "photo positions". (e.g. 0.05 meters)
   - __workspace_limits__: it is a cube defined by 3 points (X,Y,Z) from the robots' base. Inside this cube the robot will move to the different "photo positions" parameterized by __calib_grid_step__ to capture a data point. It is important to take into account that the closest distance from the camera to the checkerboard is higher than the minZ value of the depth channel. Note: on RealSense D415, minZ is 0.5 meters. shape = (3,2). rows = X, Y, Z. colums = MIN, MAX values.
-  - __reference_point_offset__: it is the point (X,Y,Z) position of the center of the checkerboard pattern with respect to the robots' base.
+  - __reference_point_offset__: it is the point (X,Y,Z) position of the center of the checkerboard pattern with respect to the robots' base on eye-in-hand or the robot's TCP on eye-to-hand.
   - __tool_orientation__: it is the orientation of the robot TCP in the robots' base system for every "photo position".
   - __checkerboard_size__: the size of the checkerboard. E.g. a checkerboard of 4x4 black-white squares is of size 3 as that is the number of inner crosses.
   - __camera_config_file__: the configuration file for the camera. Example at: `configurations/camera_config.json`
