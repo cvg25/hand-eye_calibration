@@ -1,13 +1,13 @@
 # Hand-Eye Calibration
 
-<img src="resources/eye-in-hand.svg" height=280px align="left"/>
-<img src="resources/eye-to-hand.svg" height=280px align="middle"/>
+<img src="resources/eih-process.gif" height=300px align="left"/>
+<img src="resources/eth-process.gif" height=300px align="middle"/>
 
- Left image: __eye-in-hand__. To find the `T_robot_camera`. Right image: __eye-to-hand__. To find the `T_ext_camera`.
-[Source](https://doc.rc-visard.com/latest/en/handeye_calibration.html)
+ While performing the calibration process: 
+ - Left image: __eye-in-hand__: To find the `T_robot_camera`. 
+ - Right image: __eye-to-hand__. To find the `T_base_camera`.
 
-
-### Index:
+## __Index__:
 - [Problem](https://github.com/cvg25/hand-eye_calibration#problem)
 - [Motivation](https://github.com/cvg25/hand-eye_calibration#motivation)
 - [Proposed solution explained](https://github.com/cvg25/hand-eye_calibration#proposed-solution-explained)
@@ -17,10 +17,18 @@
 - [Hardware](https://github.com/cvg25/hand-eye_calibration#hardware)
 - [Acknowledgments](https://github.com/cvg25/hand-eye_calibration#acknowledgments)
 
-### Problem:
+## __Problem__:
+
+
+<img src="resources/eye-in-hand.svg" height=280px align="left"/>
+<img src="resources/eye-to-hand.svg" height=280px align="middle"/>
+
+ Left image: __eye-in-hand__. To find the `T_robot_camera`. Right image: __eye-to-hand__. To find the `T_ext_camera`.
+[Source](https://doc.rc-visard.com/latest/en/handeye_calibration.html)
+
 "In robotics and mathematics, the hand eye calibration problem (also called the robot-sensor or robot-world calibration problem) is the problem of determining the transformation between a robot end-effector and a camera or between a robot base and the world coordinate system." [Learn more.](https://en.wikipedia.org/wiki/Hand_eye_calibration_problem)
 
-### Motivation:
+## __Motivation__:
 To develop a calibration procedure that:
 - It is __end to end__. No human intervention once the system is ready to start the calibration process.
 - It is suitable for both cases, __eye-in-hand__ (camera mounted on the robot) and __eye-to-hand__ (camera fixed to the workspace).
@@ -31,7 +39,7 @@ To develop a calibration procedure that:
 
 
 
-### Proposed solution explained:
+## __Proposed solution explained__:
 The calibration process estimates the camera extrinsics with respect to:
 - Robot base coordinates for the __eye-to_hand__.
 - Tool Center Position coordinates for the __eye-in-hand__.
@@ -84,7 +92,7 @@ Red points will not overlap the blue ones unless RGBD precision is 100% accurate
 
 
 
-### How to use:
+## __How to use__:
 1. Put the checkerboard pattern fixed to either the robot hand tool center position (eye-to-hand) or the workspace (eye-in-hand). Make sure it will not move during the calibration process.
 
 <img src="resources/eih-checkerboard.jpg" height=280px align="left"/> 
@@ -139,18 +147,18 @@ Keep it running while calibrating, each time the robot connects to retrieve an R
 
 9. To test the result of the calibrated camera extrinsics edit the `configurations/touch_tester_config.json` file to meet your setup and execute `$ python touch_tester.py`. It provides a UI where the user can click at any point in the RGBD image and the robot moves its end-effector to the 3D location of that point.
 
-### Advantages:
+## __Advantages__:
 - It directly optimizes for both depth and rgb channels at the same time. This has many advantages. For example, it introduces the noise of the depth sensor in the calibration process and calculates the transformation matrix with it. As opposed to other solutions where the calibration process is only estimated using the rgb channels and a reference point (e.g. ArUco marker) which its depth precision differs from the depth channel of the image, therefore not capturing this discrepancies inside the calibration process.
 - It is fast and easy compared to other more manual or different steps solutions.
 - It uses common python libraries.
 - It is suitable for both cases, __eye-in-hand__ (camera mounted on the robot) and __eye-to-hand__ (camera fixed to the workspace).
 - It is __end to end__. No human intervention once the system is ready to start the calibration process.
 
-### Limitations:
+## __Limitations__:
 - Precision increases with samples. As the robot has to move to different photo positions, it is sometimes difficult to use in very small spaces or with obstacles.
 - It is only suitable for RGBD Cameras.
 
-### Hardware:
+## __Hardware__:
 
 - RGBD Camera, Robot and PC.
 
@@ -159,7 +167,7 @@ Keep it running while calibrating, each time the robot connects to retrieve an R
   - Robot: UR10e
   - PC: Ubuntu 18 and 20 running Python 3.8
 
-### Acknowledgments
+## __Acknowledgments__:
 
   This calibration software was performed at INESCOP Footwear Technological Institute (https://www.inescop.es) to calibrate the cameras for the [SoftManBot H2020](http://softmanbot.eu/) project. Polígono Industrial Campo Alto, Elda, Alicante (Spain).
 
