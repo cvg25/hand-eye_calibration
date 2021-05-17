@@ -42,8 +42,8 @@ def touch_tester(args):
                 # Transform from tool_world_position to base_world_position
                 # tool_world_position.shape = (3,1)
                 # current_pose.shape = (1,6)
-                # T_be = utils.V2T(current_pose)
-                # base_world_position = np.dot(T_be[0:3,0:3], tool_world_position[0:3,0]) + current_position
+                # T_eb = utils.V2T(current_pose)
+                # base_world_position = np.dot(T_eb[0:3,0:3], tool_world_position[0:3,0]) + current_position
                 # robot.move_to_pose(base_world_position[0:3], current_orientation)
 
             else: # "EYE_TO_HAND"

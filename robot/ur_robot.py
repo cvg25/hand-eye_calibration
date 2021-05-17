@@ -265,8 +265,8 @@ class URRobot():
         # Transform from position to base_world_position
         position.shape = (3,1)
         current_pose.shape = (1,6)
-        T_be = utils.V2T(current_pose)
-        base_world_position = np.dot(T_be[0:3,0:3], position[0:3,0]) + current_position
+        T_eb = utils.V2T(current_pose)
+        base_world_position = np.dot(T_eb[0:3,0:3], position[0:3,0]) + current_position
         self.move_to_pose(base_world_position[0:3], orientation)
 
     def orientate_wrt_tool(self, orientation):
