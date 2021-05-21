@@ -169,7 +169,7 @@ Keep it running while calibrating, each time the robot connects to retrieve an R
 
 ## __Acknowledgments__:
 
-  This calibration software was performed at INESCOP Footwear Technological Institute (https://www.inescop.es) to calibrate the cameras for the [SoftManBot H2020](http://softmanbot.eu/) project. Polígono Industrial Campo Alto, Elda, Alicante (Spain).
+  This calibration software was developed at INESCOP Footwear Technological Institute (https://www.inescop.es) to calibrate the cameras for the [SoftManBot H2020](http://softmanbot.eu/) project. Polígono Industrial Campo Alto, Elda, Alicante (Spain).
 
   Method and source code inspired by:
 
